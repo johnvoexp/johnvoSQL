@@ -1,0 +1,47 @@
+*Postgres SQL*
+
+#Creating the table in postgres SQL
+CREATE TABLE video_games(
+	Month varchar(10),
+	Day integer,
+	Title varchar(100),
+	Platform varchar(100),
+	Genre varchar(100),
+	Developer varchar(75),
+	Publisher varchar(75)
+);
+
+Import table csv
+
+Question: Which month(s) had the most video game release of 2022? Which month had the least video game releases?
+
+#Group the months together and count the number of video games made in each month
+SELECT count(month), month FROM video_games
+GROUP by month
+ORDER BY count(month) desc
+
+Answer: June, 127 game releases. December, 49 game releases. 
+
+Question: List the game developer(s) that have at least 5 video game releases in 2022.
+
+
+#Group the developers and count how many releases they had. Use having function to only count the developers with at least 5 releases in 2022
+SELECT COUNT(developer), developer FROM video_games
+GROUP BY developer
+HAVING COUNT(developer) >= 5
+ORDER BY count(developer) desc
+
+Answer: 
+"Square Enix"
+"Nippon Ichi Software"
+"Capcom"
+"Inti Creates"
+"WayForward"
+"Mages"
+"Konami"
+"Spike Chunsoft"
+"Humongous Entertainment"
+"City Connection"
+"SNK"
+"Idea Factory"
+
