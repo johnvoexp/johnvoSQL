@@ -25,7 +25,10 @@ Answer: June, 127 game releases. December, 49 game releases.
 Question: List the game developer(s) that have at least 5 video game releases in 2022.
 
 
-#Group the developers and count how many releases they had. Use having function to only count the developers with at least 5 releases in 2022
+#Group the developers and count how many individual releases (without collaborations) they had. 
+Use having function to only count the developers with at least 5 releases in 2022. 
+Note: This does NOT consider collaborations between developers. 
+
 SELECT COUNT(developer), developer FROM video_games
 GROUP BY developer
 HAVING COUNT(developer) >= 5
@@ -45,3 +48,29 @@ Answer:
 "SNK"
 "Idea Factory"
 
+Question: Which genre was published in the overall year?
+
+SELECT count(genre), genre FROM video_games
+GROUP BY genre
+ORDER BY count(genre) desc
+
+Answer: The adventure genre was the most published game genre all year.
+
+If we wanted to find out what genre was popular for a particular month, then we can do this:
+
+#change the month in the WHERE month = '_____' for a particular month.
+
+SELECT count(genre), genre FROM video_games
+WHERE month = 'JANUARY' 
+GROUP BY genre
+ORDER BY count(genre) desc
+
+If we wanted to be even more specific and choose a day, then we could include one more clause to our query. 
+
+#this example will use the dates January 1 to January 15 (inclusive). 
+
+SELECT count(genre), genre FROM video_games
+WHERE month = 'JANUARY'
+AND day BETWEEN 1 AND 15
+GROUP BY genre
+ORDER BY count(genre) desc
