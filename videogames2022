@@ -1,5 +1,7 @@
 *Postgres SQL*
 
+DATASET DOWNLOAD: https://www.kaggle.com/datasets/mattop/video-games-released-in-2022
+
 #Creating the table in postgres SQL
 CREATE TABLE video_games(
 	Month varchar(10),
@@ -13,7 +15,7 @@ CREATE TABLE video_games(
 
 Import table csv
 
-Question: Which month(s) had the most video game release of 2022? Which month had the least video game releases?
+Question: Which month(s) had the most video game release of 2022? Which month(s) had the least video game releases?
 
 #Group the months together and count the number of video games made in each month
 SELECT count(month), month FROM video_games
@@ -22,7 +24,7 @@ ORDER BY count(month) desc
 
 Answer: June, 127 game releases. December, 49 game releases. 
 
-Question: List the game developer(s) that have at least 5 video game releases in 2022.
+Question: List the game developer(s) that have at least 5 individual video game releases in 2022.
 
 
 #Group the developers and count how many individual releases (without collaborations) they had. 
@@ -48,7 +50,7 @@ Answer:
 "SNK"
 "Idea Factory"
 
-Question: Which genre was published in the overall year?
+Question: Which genre was published the most in the overall year?
 
 SELECT count(genre), genre FROM video_games
 GROUP BY genre
