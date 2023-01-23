@@ -1,5 +1,10 @@
 *Postgres SQL*
 
+#Video Games Released in 2022. This dataset is useful for 
+#anyone looking to research the video games released in 2022, to 
+#identify trends and patterns in the gaming industry, 
+#or to keep track of new releases for personal or professional use.
+
 DATASET DOWNLOAD: https://www.kaggle.com/datasets/mattop/video-games-released-in-2022
 
 #Creating the table in postgres SQL
