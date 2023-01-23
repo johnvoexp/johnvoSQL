@@ -1,0 +1,80 @@
+*Postgres SQL*
+
+#The dataset contains revenue and profit of Fortune 500 
+#companies in the year 1955 along with their profits and 
+#revenue in that year. The rank, together with company 
+#name, revenue(in millions) and profit. There are some other
+#years included, but we'll only use 1955 because the most
+#data is associated with it in this dataset.
+
+DATASET DOWNLOAD: https://www.kaggle.com/datasets/yashsrivastava51213/revenue-and-profit-of-fortune-500-companies
+
+#Creating the table in postgres SQL
+CREATE TABLE fortune_companies(
+	Year integer,
+	Rank integer,
+	Company varchar(150),
+	Revenue varchar(10),
+	Profit varchar(10)
+);
+
+Import table csv
+
+
+#Test to ensure table has been inputted correctly
+SELECT * FROM fortune_companies
+
+Question: What are the top 10 ranked fortune 500 companies of 1955?
+
+SELECT company, rank FROM fortune_companies
+WHERE year = 1955
+LIMIT 10
+
+Answer:
+"General Motors"	1
+"Exxon Mobil"	2
+"U.S. Steel"	3
+"General Electric"	4
+"Esmark"	5
+"Chrysler"	6
+"Armour"	7
+"Gulf Oil"	8
+"Mobil"	9
+"DuPont"	10
+
+Question: What are the bottom 10 ranked fortune 500 companies of 1955?
+
+SELECT company, rank FROM fortune_companies
+WHERE year = 1955
+ORDER BY rank desc
+LIMIT 10
+
+Answer:
+"Copperweld Steel"	500
+"Goodall-Sanford"	499
+"Cuban-American Sugar"	498
+"Bullard"	497
+"Signal Oil Gas"	496
+"Trane"	495
+"Warner-Lambert"	494
+"Blue Bell"	493
+"Mansfield Tire & Rubber"	492
+"Truax-Traer Coal"	491
+
+#The difference here is the ORDER BY statements. The first question can assume that we will 
+#ORDER BY asc, so it isn't necessary. We can still add it for future readers.
+
+Question: If we wanted to know the particular name and revenue (in millions) of companies ranked 43 to 47 in 1955, how would we do it? What are the companies?
+
+SELECT company, revenue FROM fortune_companies
+WHERE year = 1955 AND
+rank BETWEEN 43 AND 47
+
+Answer:
+"Eastman Kodak"	"633.5"
+"Goodrich"	"630.7"
+"Continental Group"	"616.2"
+"Bendix"	"607.7"
+"Atlantic Richfield"	"596.2"
+
+#We will specify the year first using a WHERE statement. Next, we will use an AND statement and use between because it will be inclusive of 43 and 47.
