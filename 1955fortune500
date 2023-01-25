@@ -14,8 +14,8 @@ CREATE TABLE fortune_companies(
 	Year integer,
 	Rank integer,
 	Company varchar(150),
-	Revenue varchar(10),
-	Profit varchar(10)
+	Revenue money,
+	Profit money
 );
 
 Import table csv
@@ -78,3 +78,27 @@ Answer:
 "Atlantic Richfield"	"596.2"
 
 #We will specify the year first using a WHERE statement. Next, we will use an AND statement and use between because it will be inclusive of 43 and 47.
+
+Question: Discover the spending costs made by the first 10 ranked companies.
+
+#We will want to find the COSTS which can be found by revenue - profits to equal costs.
+
+Select rank, company, revenue, profit, (revenue-profit) AS costs 
+FROM fortune_companies
+LIMIT 10
+
+Answer:
+RANK	Company		 Revenue	 Profit		 Costs
+1	"General Motors""$9,823.50"	"$806.00"	"$9,017.50"
+2	"Exxon Mobil"	"$5,661.40"	"$584.80"	"$5,076.60"
+3	"U.S. Steel"	"$3,250.40"	"$195.40"	"$3,055.00"
+4	"General Electric""$2,959.10"	"$212.60"	"$2,746.50"
+5	"Esmark"	"$2,510.80"	"$19.10"	"$2,491.70"
+6	"Chrysler"	"$2,071.60"	"$18.50"	"$2,053.10"
+7	"Armour"	"$2,056.10"	"$1.60"		"$2,054.50"
+8	"Gulf Oil"	"$1,705.30"	"$182.80"	"$1,522.50"
+9	"Mobil"		"$1,703.60"	"$183.80"	"$1,519.80"
+10	"DuPont"	"$1,687.70"	"$344.40"	"$1,343.30"
+
+#note, these are all in millions. 
+As we can see, the rank 1 company, General Motors, incurred costs of 9017.5 million. 
