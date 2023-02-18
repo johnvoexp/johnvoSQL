@@ -96,6 +96,29 @@ WHERE gender = 'Female' AND total >= 80
 AND product_line ILIKE 'Health%'
 GROUP BY payment
 
+Result:
 "Credit card"	15
-"Ewallet"	    18
-"Cash"	      17
+"Ewallet" 	18
+"Cash"	      	17
+
+#How many of these 50 customers were members? Let's just add a simple clause similar to the previous.
+
+SELECT customer, COUNT(*) FROM supermarket_sales
+WHERE gender = 'Female' AND total >= 80
+AND product_line ILIKE 'Health%'
+GROUP BY customer
+
+Result:
+"Normal"	27
+"Member"	23
+
+#We are able to do a lot with this type of information. So far, we have shown the specificity in gender in shopping for specific products. 
+#We have also been able to dig deeper into that with payment option and type of customer (member / non-member). 
+
+Question: How many different items were sold in total for each of the three stores assuming that each store prices each item the same.
+
+#This is a unique question because we are ONLY given product line. HOWEVER, we are given a column with unit price. Thus, we can find the total number.
+
+SELECT COUNT(DISTINCT(unit_price)) FROM supermarket_sales
+
+Result: 943 UNIQUE unit prices. Thus, 943 different items were sold in this three month period for the three branches.
