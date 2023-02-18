@@ -1,0 +1,101 @@
+*Postgres SQL*
+
+#The growth of supermarkets in most populated cities are increasing and market competitions are also high. 
+#The dataset is one of the historical sales of supermarket company which has recorded in 3 different branches for 3 months data. 
+#Predictive data analytics methods are easy to apply with this dataset.
+#All the columns below will be defined in the link provided. 
+
+DATASET DOWNLOAD: https://www.kaggle.com/datasets/aungpyaeap/supermarket-sales
+
+#Creating the table in postgres SQL
+
+CREATE TABLE supermarket_sales(
+	Invoice_ID varchar(15),
+	Branch varchar(1),
+	City varchar(30),
+	Customer varchar(15),
+	Gender varchar(10),
+	Product_line varchar(75),
+	Unit_price FLOAT,
+	Quantity integer,
+	Tax FLOAT,
+	TOTAL FLOAT,
+	Date varchar(15),
+	Time varchar(6),
+	Payment varchar(15),
+	cogs FLOAT,
+	gross_margin_percentage FLOAT,
+	gross_income FLOAT,
+	RATING FLOAT
+);
+
+Import table csv
+
+#We will start with simple questions and get progressively more in-depth. 
+
+Question: How many of either gender (M/F) was represented in buying something from any one of the three branches?
+
+#This will be simple, just do a count for one of the genders, then we can subtract from 1000 to get the other.
+
+SELECT COUNT(*) FROM supermarket_sales
+WHERE gender = 'Male'
+
+Result: 499 Males. Thus 501 Females. 
+
+Question: How many of the 499 males were shoppers at Branch A, B, and C?
+
+#Here, we are separating the branches into different groups. Then, we want to COUNT(*) all the results. 
+
+SELECT branch, COUNT(*) FROM supermarket_sales
+WHERE gender = 'Male'
+GROUP BY branch
+
+Result:
+"A"	179
+"B"	170
+"C"	150
+
+#If we wanted to do the opposite for females, then...
+
+SELECT branch, COUNT(*) FROM supermarket_sales
+WHERE gender = 'Female'
+GROUP BY branch
+
+"A"	161
+"B"	162
+"C"	178
+
+#And if we REALLY wanted to double check to confirm, then we could remove the WHERE clause...
+
+SELECT branch, COUNT(*) FROM supermarket_sales
+GROUP BY branch
+
+"A"	340
+"B"	332
+"C"	328
+
+#The numbers add up, so everything looks good.
+
+#OK. Now let's get a bit more complicated...
+
+Question: Out of all the female shoppers in each branch that bought a health and beauty product, how many at least a total of 80 dollars?
+
+#The goal is to create specific clauses. We can start with gender to elimate all the male customers. Next, set a >= clause set to 80. 
+#Finally, we specify which product line with an ILIKE (in case of any spelling errors).
+
+SELECT COUNT(*) FROM supermarket_sales
+WHERE gender = 'Female' AND total >= 80
+AND product_line ILIKE 'Health%'
+
+Result: 50 female customers spent at least 80 dollars on a health and beauty product within the past 3 months.
+
+#We will go a little further and see how these particular 50 customers paid for their product(s). We'll add a simple clause in the select and a group by statement.
+
+SELECT payment, COUNT(*) FROM supermarket_sales
+WHERE gender = 'Female' AND total >= 80
+AND product_line ILIKE 'Health%'
+GROUP BY payment
+
+"Credit card"	15
+"Ewallet"	    18
+"Cash"	      17
