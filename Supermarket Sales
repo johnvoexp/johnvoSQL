@@ -21,7 +21,7 @@ CREATE TABLE supermarket_sales(
 	Tax FLOAT,
 	TOTAL FLOAT,
 	Date DATE,
-	Time TIMESTAMP,
+	Time TIME,
 	Payment varchar(15),
 	cogs FLOAT,
 	gross_margin_percentage FLOAT,
